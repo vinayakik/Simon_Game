@@ -11,12 +11,13 @@ started = false;
 var level = 0;
 
 //jQuery to detect when a keyboard key has been pressed
-$(document).keypress(function () {
+$("#startBtn").click(function () {
     if (!started) {
         //The h1 title starts out saying "Press A Key to Start", when the game has started, change this to say "Level 0"
         $("#level-title").text("Level " + level)
         nextSequence();
         started = true;
+        $("#startBtn").css("visibility","hidden"); //once user click on strt. Buttonn will be hidden until game over
     }
 });
 
@@ -55,6 +56,8 @@ function checkAnswer(currentLevel){
         if(userClickedPattern.length==gamePattern.length){
             setTimeout(nextSequence,1000);
             userClickedPattern=[];
+        
+
         }
     }
     else{
@@ -65,7 +68,10 @@ function checkAnswer(currentLevel){
         $(document.body).removeClass("game-over");
         },200);
 
-        $("#level-title").text("Game Over, Press Any Key to Restart");
+        $("#level-title").text("Game Over, Click on Restart");
+        $("#startBtn").text("Restart")
+        $("#startBtn").css("visibility","visible"); //make button visible once game over
+
         startOver()
     }
 }
@@ -86,6 +92,7 @@ function animatePress(currentColour) {
 function startOver(){
     level=0;
     gamePattern=[];
+    userClickedPattern=[];
     started=false;
 
 }
